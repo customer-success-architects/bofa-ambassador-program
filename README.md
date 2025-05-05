@@ -105,3 +105,7 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet sonarscanner begin /k:"<your_project_name>" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="<your_token>"`
 1. `dotnet build`
 1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
+
+1. "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
+1. Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
+1. /tests for my dotnet proj
