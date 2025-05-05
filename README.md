@@ -117,27 +117,27 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 <!-- 
 dotnet sonarscanner begin /k:"abc" \
    /d:sonar.host.url="http://localhost:9000" \
-   /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+   /d:sonar.token="<your_token>" \
    /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
    /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs"
 
 dotnet build
 dotnet test --collect:"XPlat Code Coverage"
 
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+dotnet sonarscanner end /d:sonar.token="<your_token>"
 
 
 
 Possible 
 dotnet sonarscanner begin /k:"abc" \
   /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+  /d:sonar.token="<your_token>" \
   /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
   /d:sonar.cs.cobertura.reportsPaths="**/coverage.cobertura.xml" \
   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage" && \
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" -->
+dotnet sonarscanner end /d:sonar.token="<your_token>" -->
 
 
 ### THIS LOOKS TO HAVE WORKED
@@ -145,13 +145,13 @@ dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda
 
 dotnet sonarscanner begin /k:"abc" \
   /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+  /d:sonar.token="<your_token>" \
   /d:sonar.verbose=true \
   /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
   /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+dotnet sonarscanner end /d:sonar.token="<your_token>"
 
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"
