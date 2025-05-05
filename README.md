@@ -100,7 +100,7 @@ Generally speaking, when we work with our own large, complex, unique codebases, 
 #### .NET - Setup
 As a prerequisite for this demo, you will need a project set-up already inside of SonarQube.
 
-Then, make sure you are in the DotnetApp folder of this repo.
+<!-- Then, make sure you are in the DotnetApp folder of this repo. -->
 <!-- 1. `cd DotnetApp` -->
 
 If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
@@ -110,12 +110,13 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
 
 #### Unit Tests
-1. @workspace /tests for #file:TaskItem.cs
+1. `@workspace /tests for #file:TaskItem.cs`
    - Make sure the created file is in the `DotnetApp.Tests/Models` directory
    - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
 
 #### Code Coverage
-- ``` sh
+<!-- Should I stage an error to show how to resolve it? -->
+1. ``` sh
    dotnet sonarscanner begin /k:"BofA" \
      /d:sonar.host.url="http://localhost:9000" \
      /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea" \
@@ -123,48 +124,19 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
      /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
      /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml"
    ```
-- `dotnet build DotnetApp/DotnetApp.csproj`
-- `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
-- `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
-
+1. `dotnet build DotnetApp/DotnetApp.csproj`
+1. `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
 
 #### Misc.
 
-1. "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
-1. Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
-1. @workspace /tests for #file:TaskItem.cs
-   - make sure the created file is in the DotnetApp.Tests directory
-   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
-   - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
-   - In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
-      - ex. ![alt text](image.png)
+- "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
+- Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
+- related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
+- In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
+   - ex. ![alt text](image.png)
 
 <!-- 
-dotnet sonarscanner begin /k:"abc" \
-   /d:sonar.host.url="http://localhost:9000" \
-   /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
-   /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs"
-
-dotnet build
-dotnet test --collect:"XPlat Code Coverage"
-
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
-
-
-
-Possible 
-dotnet sonarscanner begin /k:"abc" \
-  /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
-  /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-  /d:sonar.cs.cobertura.reportsPaths="**/coverage.cobertura.xml" \
-  /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" && \
-dotnet build DotnetApp/DotnetApp.csproj && \
-dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage" && \
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" -->
-
-
 ### THIS LOOKS TO HAVE WORKED
 0.0% to 44.2%
 
@@ -179,12 +151,8 @@ dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
 dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
 
-
 export SONAR_TOKEN="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
 dotnet sonarscanner begin /k:"abc" /d:sonar.host.url="http://localhost:9000" /d:sonar.token="$SONAR_TOKEN" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
-
-#### NEEDED?
-Do I actually user sonar-project.properties? or SonarQube.Analysis.xml?
+dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN" -->
