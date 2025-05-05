@@ -108,4 +108,6 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 
 1. "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
 1. Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
-1. /tests for my dotnet proj
+1. @workspace /tests for #file:TaskItem.cs
+   - make sure the created file is in the DotnetApp.Tests directory
+   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
