@@ -239,3 +239,12 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# SonarQube
+.sonar/
+.scannerwork/
+.sonarqube/
+sonar-project.properties
+.sonarlint/
+.sonarwork/
+reports/
