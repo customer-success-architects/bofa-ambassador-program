@@ -111,3 +111,47 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. @workspace /tests for #file:TaskItem.cs
    - make sure the created file is in the DotnetApp.Tests directory
    - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
+   - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
+
+
+<!-- 
+dotnet sonarscanner begin /k:"abc" \
+   /d:sonar.host.url="http://localhost:9000" \
+   /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+   /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
+   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs"
+
+dotnet build
+dotnet test --collect:"XPlat Code Coverage"
+
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+
+
+
+Possible 
+dotnet sonarscanner begin /k:"abc" \
+  /d:sonar.host.url="http://localhost:9000" \
+  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+  /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
+  /d:sonar.cs.cobertura.reportsPaths="**/coverage.cobertura.xml" \
+  /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" && \
+dotnet build DotnetApp/DotnetApp.csproj && \
+dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage" && \
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" -->
+
+
+### THIS LOOKS TO HAVE WORKED
+0.0% to 44.2%
+
+dotnet sonarscanner begin /k:"abc" \
+  /d:sonar.host.url="http://localhost:9000" \
+  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+  /d:sonar.verbose=true \
+  /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
+  /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
+  /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" && \
+dotnet build DotnetApp/DotnetApp.csproj && \
+dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+
+dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"
