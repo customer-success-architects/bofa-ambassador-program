@@ -94,3 +94,14 @@ BofA has Public Code Block enabled. This means, if Copilot generates code that c
 - Break your problem into smaller problems
 
 Generally speaking, when we work with our own large, complex, unique codebases, we won't run into this much. This will mostly come into play when we are starting from scratch or asking Copilot for generic examples. The alternative to the Public Code Block is Code Referencing, where Copilot will show the public code anyway and let you know what type of license applies to the repo it is sourced from.
+
+## Specific Demos - Using Copilot with specific tools
+### SonarQube
+#### .NET
+As a prerequisite for this demo, you will need a project set-up already inside of SonarQube.
+
+If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
+1. `dotnet tool install --global dotnet-sonarscanner`
+1. `dotnet sonarscanner begin /k:"<your_project_name>" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="<your_token>"`
+1. `dotnet build`
+1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
