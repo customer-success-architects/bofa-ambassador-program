@@ -97,14 +97,38 @@ Generally speaking, when we work with our own large, complex, unique codebases, 
 
 ## Specific Demos - Using Copilot with specific tools
 ### SonarQube
-#### .NET
+#### .NET - Setup
 As a prerequisite for this demo, you will need a project set-up already inside of SonarQube.
+
+Then, make sure you are in the DotnetApp folder of this repo.
+<!-- 1. `cd DotnetApp` -->
 
 If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet tool install --global dotnet-sonarscanner`
 1. `dotnet sonarscanner begin /k:"<your_project_name>" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="<your_token>"`
-1. `dotnet build`
+1. `dotnet build DotnetApp/DotnetApp.csproj`
 1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
+
+#### Unit Tests
+1. @workspace /tests for #file:TaskItem.cs
+   - Make sure the created file is in the `DotnetApp.Tests/Models` directory
+   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
+
+#### Code Coverage
+- ``` sh
+   dotnet sonarscanner begin /k:"BofA" \
+     /d:sonar.host.url="http://localhost:9000" \
+     /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea" \
+     /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
+     /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
+     /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml"
+   ```
+- `dotnet build DotnetApp/DotnetApp.csproj`
+- `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
+- `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
+
+
+#### Misc.
 
 1. "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
 1. Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
@@ -146,17 +170,17 @@ dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda
 
 dotnet sonarscanner begin /k:"abc" \
   /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
+  /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea" \
   /d:sonar.verbose=true \
   /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
   /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
 
 
-export SONAR_TOKEN="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+export SONAR_TOKEN="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
 dotnet sonarscanner begin /k:"abc" /d:sonar.host.url="http://localhost:9000" /d:sonar.token="$SONAR_TOKEN" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
