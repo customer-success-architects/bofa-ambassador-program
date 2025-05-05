@@ -97,11 +97,14 @@ Generally speaking, when we work with our own large, complex, unique codebases, 
 
 ## Specific Demos - Using Copilot with specific tools
 ### SonarQube
+#### SonarQube - Setup
+As a prerequisite for this demo, you will need Docker Desktop installed and running.
+1. `docker pull sonarqube:community`
+1. Follow any steps here that you need: https://docs.sonarsource.com/sonarqube-community-build/try-out-sonarqube/
+1. Navigate to http://localhost:9000
+
 #### .NET - Setup
 As a prerequisite for this demo, you will need a project set-up already inside of SonarQube.
-
-<!-- Then, make sure you are in the DotnetApp folder of this repo. -->
-<!-- 1. `cd DotnetApp` -->
 
 If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet tool install --global dotnet-sonarscanner`
@@ -129,7 +132,6 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
 
 #### Misc.
-
 - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
 - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
 - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
