@@ -43,15 +43,12 @@ namespace DotnetApp.Models
                     else if (Status == "completed" && (DateTime.UtcNow - CreatedAt).TotalDays < 7)
                     {
                         score += 30;
-                        if (!string.IsNullOrEmpty(Description))
+                        if (!string.IsNullOrEmpty(Description) && (Description.Contains("urgent") || Description.Contains("important")))
                         {
-                            if (Description.Contains("urgent") || Description.Contains("important"))
+                            score += 20;
+                            if (Title.Length < 50)
                             {
-                                score += 20;
-                                if (Title.Length < 50)
-                                {
-                                    score += 5;
-                                }
+                                score += 5;
                             }
                         }
                     }
@@ -65,12 +62,9 @@ namespace DotnetApp.Models
                         if ((DateTime.UtcNow - CreatedAt).TotalHours < 24)
                         {
                             score += 15;
-                            if (!string.IsNullOrEmpty(Description))
+                            if (!string.IsNullOrEmpty(Description) && (Description.Contains("blocking") || Description.Contains("critical")))
                             {
-                                if (Description.Contains("blocking") || Description.Contains("critical"))
-                                {
-                                    score += 35;
-                                }
+                                score += 35;
                             }
                         }
                     }
@@ -81,15 +75,12 @@ namespace DotnetApp.Models
                 if (IsCompleted)
                 {
                     score += 80;
-                    if (!string.IsNullOrEmpty(Description))
+                    if (!string.IsNullOrEmpty(Description) && (Description.Contains("bug") || Description.Contains("fix")))
                     {
-                        if (Description.Contains("bug") || Description.Contains("fix"))
+                        score += 30;
+                        if (Status == "completed" && (DateTime.UtcNow - CreatedAt).TotalDays < 3)
                         {
-                            score += 30;
-                            if (Status == "completed" && (DateTime.UtcNow - CreatedAt).TotalDays < 3)
-                            {
-                                score += 20;
-                            }
+                            score += 20;
                         }
                     }
                 }
@@ -109,15 +100,12 @@ namespace DotnetApp.Models
             else if (Priority == 3)
             {
                 score = IsCompleted ? 60 : 40;
-                if (!string.IsNullOrEmpty(Description))
+                if (!string.IsNullOrEmpty(Description) && (Description.Contains("enhancement") || Description.Contains("feature")))
                 {
-                    if (Description.Contains("enhancement") || Description.Contains("feature"))
+                    score += IsCompleted ? 25 : 15;
+                    if (Status == "in-progress")
                     {
-                        score += IsCompleted ? 25 : 15;
-                        if (Status == "in-progress")
-                        {
-                            score += 10;
-                        }
+                        score += 10;
                     }
                 }
             }
