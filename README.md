@@ -112,32 +112,33 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
    - make sure the created file is in the DotnetApp.Tests directory
    - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
    - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
-
+   - In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
+      - ex. ![alt text](image.png)
 
 <!-- 
 dotnet sonarscanner begin /k:"abc" \
    /d:sonar.host.url="http://localhost:9000" \
-   /d:sonar.token="<your_token>" \
+   /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
    /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
    /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs"
 
 dotnet build
 dotnet test --collect:"XPlat Code Coverage"
 
-dotnet sonarscanner end /d:sonar.token="<your_token>"
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
 
 
 
 Possible 
 dotnet sonarscanner begin /k:"abc" \
   /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="<your_token>" \
+  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
   /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
   /d:sonar.cs.cobertura.reportsPaths="**/coverage.cobertura.xml" \
   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage" && \
-dotnet sonarscanner end /d:sonar.token="<your_token>" -->
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" -->
 
 
 ### THIS LOOKS TO HAVE WORKED
@@ -145,13 +146,21 @@ dotnet sonarscanner end /d:sonar.token="<your_token>" -->
 
 dotnet sonarscanner begin /k:"abc" \
   /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="<your_token>" \
+  /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da" \
   /d:sonar.verbose=true \
   /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
   /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
   /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" && \
 dotnet build DotnetApp/DotnetApp.csproj && \
 dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="<your_token>"
+dotnet sonarscanner end /d:sonar.token="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
 
-dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"
+
+export SONAR_TOKEN="sqp_86aa569430ff00ed6cbc58687953033b5eda48da"
+dotnet sonarscanner begin /k:"abc" /d:sonar.host.url="http://localhost:9000" /d:sonar.token="$SONAR_TOKEN" && \
+dotnet build DotnetApp/DotnetApp.csproj && \
+dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
+dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+
+#### NEEDED?
+Do I actually user sonar-project.properties? or SonarQube.Analysis.xml?
