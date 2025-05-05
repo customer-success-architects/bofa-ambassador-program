@@ -133,7 +133,7 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 
 #### Misc.
 - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
-- Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15."
+- Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint."
 - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
 - In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
    - ex. ![alt text](image.png)
