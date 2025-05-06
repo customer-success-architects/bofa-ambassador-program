@@ -98,7 +98,7 @@ BofA has Public Code Block enabled. This means, if Copilot generates code that c
 
 Generally speaking, when we work with our own large, complex, unique codebases, we won't run into this much. This will mostly come into play when we are starting from scratch or asking Copilot for generic examples. The alternative to the Public Code Block is Code Referencing, where Copilot will show the public code anyway and let you know what type of license applies to the repo it is sourced from.
 
-## Specific Demos - Using Copilot with specific tools
+## Extended Demos
 ### SonarQube
 #### SonarQube - Setup
 As a prerequisite for this demo, you will need Docker Desktop installed and running.
