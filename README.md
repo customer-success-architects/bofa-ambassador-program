@@ -119,7 +119,7 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 ##### Reliability
 1. In SonarQube it is telling me to "Await RunAsync instead" for line 44 of #file:Program.cs. Can you help me fix this?
 ##### Maintainability
-1. In SonarQube it is telling me to "Refactor this method to reduce its Cognitive Complexity from 84 to the 15 allowed" for line 21 of #file:TaskItem.cs. Can you help me fix this?
+1. In SonarQube it is telling me to "Refactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed" for line 21 of #file:TaskItem.cs. Can you help me fix this?
 
 > Tip: Add a new custom instruction for this: "My team uses SonarQube. Please keep the Cognitive Complexity for all suggested code under 15. In other words, the functions that you suggest need to be very clear and brief in what they do, from a program logic standpoint. Break long, complex functions up into smaller components."
 
