@@ -1,5 +1,5 @@
 # General
-When refactoring for a decrease in Cognitive Complexity, remove unnecessary logic. For example: adding to a task's score because of the description of a task. That is unneeded.
+When refactoring for a decrease in Cognitive Complexity, remove unnecessary logic.
 
 # Python
 Always write my Python unit tests using `pytest`, not `unittest`.
