@@ -128,14 +128,14 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. ``` sh
    dotnet sonarscanner begin /k:"BofA" \
      /d:sonar.host.url="http://localhost:9000" \
-     /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea" \
+     /d:sonar.token="sqa_b35bc369afd55e5ba12ee526645f8a164ce46980" \
      /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
      /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
      /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml"
    ```
 1. `dotnet build DotnetApp/DotnetApp.csproj`
 1. `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
-1. `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_b35bc369afd55e5ba12ee526645f8a164ce46980"`
 
 #### Misc.
 <!-- - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?" -->
