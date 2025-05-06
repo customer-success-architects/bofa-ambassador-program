@@ -111,9 +111,9 @@ As a prerequisite for this demo, you will need a project set-up already inside o
 
 If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet tool install --global dotnet-sonarscanner`
-1. `dotnet sonarscanner begin /k:"<your_project_name>" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="<your_token>"`
+1. `dotnet sonarscanner begin /k:"BofA" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
 1. `dotnet build DotnetApp/DotnetApp.csproj`
-1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
 
 #### Fixing Sonar Issues
 ##### Reliability
@@ -125,21 +125,35 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 
 #### Code Coverage
 <!-- Should I stage an error to show how to resolve it? -->
+<!-- rm -rf DotnetApp.Tests/TestResults/* -->
+1. `dotnet clean DotnetApp/DotnetApp.csproj && dotnet build DotnetApp/DotnetApp.csproj`
 1. ``` sh
    dotnet sonarscanner begin /k:"BofA" \
      /d:sonar.host.url="http://localhost:9000" \
-     /d:sonar.token="sqa_b35bc369afd55e5ba12ee526645f8a164ce46980" \
+     /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" \
      /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
      /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
      /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml"
    ```
 1. `dotnet build DotnetApp/DotnetApp.csproj`
 1. `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
-1. `dotnet sonarscanner end /d:sonar.token="sqa_b35bc369afd55e5ba12ee526645f8a164ce46980"`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
+
+<!-- dotnet sonarscanner begin /k:"BofA" \
+/d:sonar.host.url="http://localhost:9000" \
+/d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" \
+/d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
+/d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs,**/obj/**,**/bin/**" \
+/d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" \
+/d:sonar.coverage.dtrace.skip=true
+
+dotnet build DotnetApp/DotnetApp.csproj && dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" --no-build
+
+dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" -->
 
 #### Misc.
 <!-- - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?" -->
 <!-- - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint." -->
 <!-- - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that? -->
-- In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
+- In the future, Agent mode will be able to iterate on the issues in the dashboard (using the URL) for you!
    - ex. ![alt text](image.png)
