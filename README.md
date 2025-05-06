@@ -41,6 +41,9 @@ Chat commands are a great and easy place to start with Copilot Chat. When in dou
 
 1. Open `calculator.py` and run `/tests` <!-- (remove floats if they appear) -->
    - Optionally, run `pytest tests/`
+1. `@workspace /tests for #file:TaskItem.cs`
+   - Make sure the created file is in the `DotnetApp.Tests/Models` directory
+   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
 1. Ask `@vscode Where can I find the setting to render whitespace?`
 
 #### Context
@@ -111,11 +114,6 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet sonarscanner begin /k:"<your_project_name>" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="<your_token>"`
 1. `dotnet build DotnetApp/DotnetApp.csproj`
 1. `dotnet sonarscanner end /d:sonar.token="<your_token>"`
-
-#### Unit Tests
-1. `@workspace /tests for #file:TaskItem.cs`
-   - Make sure the created file is in the `DotnetApp.Tests/Models` directory
-   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
 
 #### Fixing Sonar Issues
 ##### Reliability
