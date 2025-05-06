@@ -117,6 +117,14 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
    - Make sure the created file is in the `DotnetApp.Tests/Models` directory
    - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
 
+#### Fixing Sonar Issues
+##### Reliability
+1. In SonarQube it is telling me to "Await RunAsync instead" for line 44 of #file:Program.cs. Can you help me fix this?
+##### Maintainability
+1. In SonarQube it is telling me to "Refactor this method to reduce its Cognitive Complexity from 84 to the 15 allowed" for line 21 of #file:TaskItem.cs. Can you help me fix this?
+
+> Tip: Add a new custom instruction for this: "My team uses SonarQube. Please keep the Cognitive Complexity for all suggested code under 15. In other words, the functions that you suggest need to be very clear and brief in what they do, from a program logic standpoint. Break long, complex functions up into smaller components."
+
 #### Code Coverage
 <!-- Should I stage an error to show how to resolve it? -->
 1. ``` sh
@@ -132,29 +140,8 @@ If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
 1. `dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"`
 
 #### Misc.
-- "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?"
-- Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint."
-- related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that?
+<!-- - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?" -->
+<!-- - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint." -->
+<!-- - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that? -->
 - In the future, agent mode will be able to iterate on the issues in the dashboard (using the URL) for you
    - ex. ![alt text](image.png)
-
-<!-- 
-### THIS LOOKS TO HAVE WORKED
-0.0% to 44.2%
-
-dotnet sonarscanner begin /k:"abc" \
-  /d:sonar.host.url="http://localhost:9000" \
-  /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea" \
-  /d:sonar.verbose=true \
-  /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
-  /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
-  /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" && \
-dotnet build DotnetApp/DotnetApp.csproj && \
-dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
-
-export SONAR_TOKEN="sqa_e9c39181a385392dffdb982ae6deac4635dcfcea"
-dotnet sonarscanner begin /k:"abc" /d:sonar.host.url="http://localhost:9000" /d:sonar.token="$SONAR_TOKEN" && \
-dotnet build DotnetApp/DotnetApp.csproj && \
-dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" && \
-dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN" -->
