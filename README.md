@@ -156,4 +156,3 @@ dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d
 <!-- - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint." -->
 <!-- - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that? -->
 - In the future, Agent mode will be able to iterate on the issues in the dashboard (using the URL) for you!
-   - ex. ![alt text](image.png)
