@@ -41,6 +41,9 @@ Chat commands are a great and easy place to start with Copilot Chat. When in dou
 
 1. Open `calculator.py` and run `/tests` <!-- (remove floats if they appear) -->
    - Optionally, run `pytest tests/`
+1. `@workspace /tests for #file:TaskItem.cs`
+   - Make sure the created file is in the `DotnetApp.Tests/Models` directory
+   - `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj`
 1. Ask `@vscode Where can I find the setting to render whitespace?`
 
 #### Context
@@ -94,3 +97,63 @@ BofA has Public Code Block enabled. This means, if Copilot generates code that c
 - Break your problem into smaller problems
 
 Generally speaking, when we work with our own large, complex, unique codebases, we won't run into this much. This will mostly come into play when we are starting from scratch or asking Copilot for generic examples. The alternative to the Public Code Block is Code Referencing, where Copilot will show the public code anyway and let you know what type of license applies to the repo it is sourced from.
+
+## Extended Demos
+### SonarQube
+#### SonarQube - Setup
+As a prerequisite for this demo, you will need Docker Desktop installed and running.
+1. `docker pull sonarqube:community`
+1. Follow any steps here that you need: https://docs.sonarsource.com/sonarqube-community-build/try-out-sonarqube/
+1. Navigate to http://localhost:9000
+
+#### .NET - Setup
+As a prerequisite for this demo, you will need a project set-up already inside of SonarQube.
+
+If not yet installed, be sure you have the SonarScanner .NET Core GLobal Tool
+1. `dotnet tool install --global dotnet-sonarscanner`
+1. `dotnet sonarscanner begin /k:"BofA" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
+1. `dotnet build DotnetApp/DotnetApp.csproj`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
+
+#### Fixing Sonar Issues
+##### Reliability
+1. In SonarQube it is telling me to "Await RunAsync instead" for line 44 of #file:Program.cs. Can you help me fix this?
+##### Maintainability
+1. In SonarQube it is telling me to "Refactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed" for line 21 of #file:TaskItem.cs. Can you help me fix this?
+
+> Tip: Add a new custom instruction for this: "My team uses SonarQube. Please keep the Cognitive Complexity for all suggested code under 15. In other words, the functions that you suggest need to be very clear and brief in what they do, from a program logic standpoint. Break long, complex functions up into smaller components."
+
+#### Code Coverage
+<!-- Should I stage an error to show how to resolve it? -->
+<!-- rm -rf DotnetApp.Tests/TestResults/* -->
+1. `dotnet clean DotnetApp/DotnetApp.csproj && dotnet build DotnetApp/DotnetApp.csproj`
+1. ``` sh
+   dotnet sonarscanner begin /k:"BofA" \
+     /d:sonar.host.url="http://localhost:9000" \
+     /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" \
+     /d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
+     /d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs" \
+     /d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml"
+   ```
+1. `dotnet build DotnetApp/DotnetApp.csproj`
+1. `dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura"`
+1. `dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62"`
+
+<!-- dotnet sonarscanner begin /k:"BofA" \
+/d:sonar.host.url="http://localhost:9000" \
+/d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" \
+/d:sonar.cs.cobertura.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.cobertura.xml" \
+/d:sonar.coverage.exclusions="**Test*.cs,**/*.Tests.cs,**/obj/**,**/bin/**" \
+/d:sonar.cs.opencover.reportsPaths="DotnetApp.Tests/TestResults/**/coverage.opencover.xml" \
+/d:sonar.coverage.dtrace.skip=true
+
+dotnet build DotnetApp/DotnetApp.csproj && dotnet test DotnetApp.Tests/DotnetApp.Tests.csproj --collect:"XPlat Code Coverage;Format=opencover,cobertura" --no-build
+
+dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d6f62" -->
+
+#### Misc.
+<!-- - "Can you refactor the 'CalculateTaskScore' method to reduce its Cognitive Complexity from 84 to the 15 allowed for SonarQube?" -->
+<!-- - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint." -->
+<!-- - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that? -->
+- In the future, Agent mode will be able to iterate on the issues in the dashboard (using the URL) for you!
+   - ex. ![alt text](image.png)
