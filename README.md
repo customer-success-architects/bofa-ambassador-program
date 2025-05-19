@@ -98,6 +98,9 @@ BofA has Public Code Block enabled. This means, if Copilot generates code that c
 
 Generally speaking, when we work with our own large, complex, unique codebases, we won't run into this much. This will mostly come into play when we are starting from scratch or asking Copilot for generic examples. The alternative to the Public Code Block is Code Referencing, where Copilot will show the public code anyway and let you know what type of license applies to the repo it is sourced from.
 
+A fairly reliable prompt to use to test Code Referencing (or trigger a public code block) is:
+- "generate “void fast_inverse_sqrt” in C"
+
 ## Extended Demos
 ### SonarQube
 #### SonarQube - Setup
@@ -156,3 +159,4 @@ dotnet sonarscanner end /d:sonar.token="sqa_ea0a259ee427f1113d6dc0d0de4f5484ed5d
 <!-- - Rule for Custom instructions: "My team uses SonarQube. Please keep the Cognitive complexity for all suggested code under 15. Or as low as possible. The functions that you suggest need to be very clear in what they do, form a program logic standpoint." -->
 <!-- - related: maybe try: my coverage in SonarQube is showing as 0.0%. How do I increase that? -->
 - In the future, Agent mode will be able to iterate on the issues in the dashboard (using the URL) for you!
+
